@@ -1,33 +1,46 @@
-var sql = require("mssql");
+var express = require('express');
+var app = express();
 
-var express=require("express");
+app.get('/getCategories', function (req, res) {
+   
+    var sql = require("mssql");
 
-var app=express();
+    
+    var config = {
+        user: 'alienes',
+        password: 'ali123',
+        server: 'LAPTOP-HR5BRK88',
+        database: 'NORTHWND',
+      
+        options: {
+            trustedConnection: false,           
+            enableArithAbort: true,
+            trustServerCertificate: true,
+        }
+        
+    };
 
-var dbConfig={
-     user:"alienes",
-     password:"ali123",
-     database:"NORTHWND",
-     server:"localhost"
-};
 
-app.get("/", function(req , res){
-    getEmployees()
-});
-function getEmployees() {
-    var dbConn =  sql.Connection(dbConfig);
-    dbConn.connect().then(function () {
-        var request = new sql.Request(dbConn);
-        request.query("select * from Categories").then(function (resp) {
-            console.log(resp);
-            dbConn.close();
-        }).catch(function (err) {
-            console.log(err);
-            dbConn.close();
+    
+    sql.connect(config, function (err) {
+    
+        if (err) console.log(err);
+
+       
+        var request = new sql.Request();
+           
+        
+        request.query('select CategoryID,CategoryName from Categories', function (err, recordset) {
+            
+            if (err) console.log(err)
+
+            
+            res.send(recordset);
+            
         });
-    }).catch(function (err) {
-        console.log(err);
     });
-}
+});
 
-app.listen(3000);
+var server = app.listen(8080, function () {
+    console.log('Server çalışıyor 8080');
+});
