@@ -15,7 +15,7 @@ Node.js kurulumu için nodejs.org adresine giriyoruz. Downloads sayfasında LTS 
 </p>
 <p>Kurulumdan sonra cmd de 'node -v' veya 'node --version' komutlarını girerek kurmuş olduğumuz sürümü görüntüleyebilmekteyiz.  </p>
 
-# Node.js nasıl yazılıp derlenir?
+
 
 
 
